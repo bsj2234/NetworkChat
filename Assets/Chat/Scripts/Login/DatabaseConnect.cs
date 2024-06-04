@@ -79,6 +79,33 @@ public class DatabaseConnect : MonoBehaviour
         }
     }
 
+    public bool RequestUpdate(string quary, string tableName)
+    {
+        return RequestNonquary(quary, tableName);
+    }
+    public bool RequestInsert(string quary, string tableName)
+    {
+        return RequestNonquary(quary, tableName);
+    }
+    private bool RequestNonquary(string quary, string tableName)
+    {
+        try
+        {
+            _connection.Open();
+            MySqlCommand command = new MySqlCommand(quary, _connection);
+
+            command.ExecuteNonQuery();
+
+            _connection.Close();
+            return true;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError(e.ToString() + e.Message);
+            return false;
+        }
+    }
+
     public void Disconnect()
     {
         _connection.Close();
