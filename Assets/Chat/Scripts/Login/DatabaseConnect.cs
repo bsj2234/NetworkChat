@@ -46,29 +46,7 @@ public class DatabaseConnect : MonoBehaviour
             DataSet dataset = new DataSet();
             adapter.Fill(dataset, tableName);
 
-            _connection.Close()
-    private static DataSet SelectRequest(string quary, string tableName)
-    {
-        try
-        {
-            _connection.Open();
-
-            MySqlCommand command = new MySqlCommand(quary, _connection);
-
-            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
-            DataSet dataset = new DataSet();
-            adapter.Fill(dataset, tableName);
-
             _connection.Close();
-
-            return dataset;
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError(e.ToString() + e.Message);
-            return null;
-        }
-    }
 
             return dataset;
         }
