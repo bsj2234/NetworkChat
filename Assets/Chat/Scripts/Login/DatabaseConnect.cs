@@ -84,6 +84,23 @@ public class DatabaseConnect : MonoBehaviour
         }
     }
 
+    public string DataSetToString(DataSet dataSet)
+    {
+        string resultStr = string.Empty;
+
+        foreach(DataTable dataTable in dataSet.Tables)
+        {
+            foreach(DataRow row in dataTable.Rows)
+            {
+                foreach(DataColumn col in dataTable.Columns)
+                {
+                    resultStr += $"{col.ColumnName}: {row[col]}\n";
+                }
+            }
+        }
+        return resultStr;
+    }
+
     public void Disconnect()
     {
         _connection.Close();
