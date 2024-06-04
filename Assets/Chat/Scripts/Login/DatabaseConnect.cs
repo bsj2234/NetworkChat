@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MySql.Data.MySqlClient;
+using System.Data;
 
 public class DatabaseConnect : MonoBehaviour
 {
@@ -16,12 +17,13 @@ public class DatabaseConnect : MonoBehaviour
 
     private void Start()
     {
-        _connectString =
-        $"server={IN_ip};uid={1};pwd={2},database={3};charset=utf8;";
     }
 
-    public void ConnectDb()
+    public void ConnectDb(string ip, string uid, string pwd, string db)
     {
+
+        string _connectString =
+        $"server={ip};uid={uid};pwd={pwd},database={db};charset=utf8;";
         try
         {
             _connection = new MySqlConnection(_connectString);
@@ -30,5 +32,55 @@ public class DatabaseConnect : MonoBehaviour
         {
             Debug.LogError(e.ToString() + e.Message);
         }
+    }
+
+    private static DataSet SelectRequest(string quary, string tableName)
+    {
+        try
+        {
+            _connection.Open();
+
+            MySqlCommand command = new MySqlCommand(quary, _connection);
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset, tableName);
+
+            _connection.Close()
+    private static DataSet SelectRequest(string quary, string tableName)
+    {
+        try
+        {
+            _connection.Open();
+
+            MySqlCommand command = new MySqlCommand(quary, _connection);
+
+            MySqlDataAdapter adapter = new MySqlDataAdapter(command);
+            DataSet dataset = new DataSet();
+            adapter.Fill(dataset, tableName);
+
+            _connection.Close();
+
+            return dataset;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError(e.ToString() + e.Message);
+            return null;
+        }
+    }
+
+            return dataset;
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError(e.ToString() + e.Message);
+            return null;
+        }
+    }
+
+    public void Disconnect()
+    {
+        _connection.Close();
     }
 }
