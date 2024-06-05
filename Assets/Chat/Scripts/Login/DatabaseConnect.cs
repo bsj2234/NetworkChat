@@ -9,21 +9,24 @@ public class DatabaseConnect : MonoBehaviour
     [SerializeField] private string IN_ip = "127.0.0.1";
     [SerializeField] private string IN_dbId = "root";
     [SerializeField] private string IN_dbPassword = "1234";
-    [SerializeField] private string IN_name = "user_info";
-
-    private string _connectString;
+    [SerializeField] private string IN_Db = "network_project_ky";
 
     private static MySqlConnection _connection;
 
     private void Start()
     {
+        ConnectDb();
     }
 
-    public void ConnectDb(string ip, string uid, string pwd, string db)
+    public void ConnectDb()
     {
+        ConnectDb(IN_ip, IN_dbId, IN_dbPassword, IN_Db);
+    }
 
+    private void ConnectDb(string ip, string uid, string pwd, string db)
+    {
         string _connectString =
-        $"server={ip};uid={uid};pwd={pwd},database={db};charset=utf8;";
+        $"Server={ip};Uid={uid};Pwd={pwd};Database={db};";
         try
         {
             _connection = new MySqlConnection(_connectString);
@@ -34,7 +37,7 @@ public class DatabaseConnect : MonoBehaviour
         }
     }
 
-    private static DataSet SelectRequest(string quary, string tableName)
+    public static DataSet RequestSelect(string quary, string tableName)
     {
         try
         {
