@@ -1,18 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
-public class Login : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+
+public class Login 
+{
+    public static bool RequestLogin(string userId, string password)
     {
-        
+        DataSet data = DatabaseConnect.RequestSelect(
+            $"SELECT U_Password FROM account_info WHERE U_UserId = '{userId}'", 
+            "account_info");
+        string dbPassword = data.Tables[0].Rows[0][0].ToString();
+        if (dbPassword == password)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }
