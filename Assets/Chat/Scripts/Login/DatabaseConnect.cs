@@ -60,15 +60,15 @@ public class DatabaseConnect : MonoBehaviour
         }
     }
 
-    public bool RequestUpdate(string quary, string tableName)
+    public static bool RequestUpdate(string quary, string tableName)
     {
         return RequestNonquary(quary, tableName);
     }
-    public bool RequestInsert(string quary, string tableName)
+    public static bool RequestInsert(string quary, string tableName)
     {
         return RequestNonquary(quary, tableName);
     }
-    private bool RequestNonquary(string quary, string tableName)
+    private static bool RequestNonquary(string quary, string tableName)
     {
         try
         {

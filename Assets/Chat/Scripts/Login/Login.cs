@@ -22,4 +22,10 @@ public class Login
             return false;
         }
     }
+    public static bool RequestInsert(string userId, string password)
+    {
+        return DatabaseConnect.RequestInsert(
+            $"INSERT INTO account_info VALUES ('{userId}', '{password}')",
+            "account_info");
+    }
 }
